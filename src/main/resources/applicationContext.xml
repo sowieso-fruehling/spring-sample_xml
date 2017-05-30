@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+
+	<bean name="customerRepository"
+		class="rs.bg.spring.repository.HardCodedCustomerRepositoryImpl" />
+	
+	<!-- setter injection: name="customerRepository" is for setter injection. We need to create a setter 
+		in bean name="customerService" implementation. The name of that setter must be 
+		derivated from name="customerRepository" (setCustomerRepository) that accepts bean name="customerRepository" as an argument 
+	 <bean name="customerService" 
+		class="rs.bg.spring.service.CustomerServiceImpl">		
+		<property name="customerRepository" ref="customerRepository"/>		
+		</bean>
+	-->
+		<!-- constructor injection 
+		<bean name="customerService" 
+		class="rs.bg.spring.service.CustomerServiceImpl">			
+		<constructor-arg index="0" ref="customerRepository"/>		
+		</bean>
+		-->	
+		
+		<!-- autowire by constructor 
+		<bean name="customerService"
+		class="rs.bg.spring.service.CustomerServiceImpl" autowire="constructor">
+		</bean>-->
+		
+		<!-- autowire by type 
+		<bean name="customerService"
+		class="rs.bg.spring.service.CustomerServiceImpl" autowire="byType">
+		</bean>-->
+		
+		<!-- autowire by name : done via setter of CustomerServiceImpl 
+		the setter has to have the same name as an injected bean, just with prefix set  -->
+		<bean name="customerService"
+			class="rs.bg.spring.service.CustomerServiceImpl" autowire="byName">
+		</bean>
+		
+		
+		
+</beans>
